@@ -39,7 +39,7 @@ else{
     renderGallery(data.hits);
     simpleLightbox = new SimpleLightbox('.gallery a').refresh();
     Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
- console.log(data)
+ 
 
 // if(data.totalHits > perPage){
 //     moreLoad.classList.remove('is-hidden')
@@ -81,7 +81,7 @@ fetchImages(query,page,perPage).then(({data}) => {
 
 
 window.addEventListener("scroll", function() {
-    // Jeśli użytkownik jest blisko końca strony, załaduj więcej obrazków
+   
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       loadButton();
     }
