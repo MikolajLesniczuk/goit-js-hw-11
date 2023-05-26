@@ -13,7 +13,7 @@ let query = ''
 let simpleLightbox
 const perPage = 40;
 form.addEventListener('submit',handleSearch)
-// moreLoad.addEventListener('click',loadButton)
+moreLoad.addEventListener('click',loadButton)
 
 function handleSearch (e) {
   
@@ -21,7 +21,7 @@ function handleSearch (e) {
     page = 1;
     query = e.currentTarget.searchQuery.value.trim();
     gallery.innerHTML='';
-// moreLoad.classList.add('is-hidden');
+moreLoad.classList.add('is-hidden');
 
 if(query === ''){
     Notiflix.Notify.failure('The search string cannot be empty. Please specify your search query.');
@@ -41,16 +41,24 @@ else{
     Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
  
 
-// if(data.totalHits > perPage){
-//     moreLoad.classList.remove('is-hidden')
+if(data.totalHits > perPage){
+    moreLoad.classList.remove('is-hidden')
 
-// }
+}
 
-
-if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    loadButton();
+// const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+// if (scrollTop + clientHeight >= scrollHeight) {
+//     loadButton();
    
-  }
+//   } 
+
+// ??????????????????/
+
+// if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//     loadButton();
+   
+//   }
+
 
 
 form.reset();
@@ -70,23 +78,31 @@ fetchImages(query,page,perPage).then(({data}) => {
     simpleLightbox = new SimpleLightbox('.gallery a').refresh();
     const allPages = Math.ceil(data.totalHits / perPage);
 
-    if(page > allPages){
+    if(page >= allPages){
+        
         moreLoad.classList.add('is-hidden')
-        Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
+       return Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
+        
     }
+ 
 } )
 .catch(error => console.log(error));
 
 }
 
 
-window.addEventListener("scroll", function() {
-   
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      loadButton();
-    }
+// window.addEventListener("scroll", function() {
+
+//    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//     loadButton();
+//    }
+
+//     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+//     if (scrollTop + clientHeight >= scrollHeight) {
+//       loadButton();
+//     }
 
    
-  });
+//   });
 
 
